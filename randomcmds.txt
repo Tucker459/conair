@@ -1,5 +1,6 @@
 hadoop fs -mkdir /data 
 s3-dist-cp --src s3://airline-ontime/ --dest hdfs:///data --srcPattern .*.csv
 set hive.cli.print.header=true;
+set hive.cli.print.current.db=true
 drop table airlinestats;
 s3-dist-cp --src s3://air-carrier-statistics/ --dest hdfs:///data
