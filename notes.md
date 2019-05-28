@@ -35,3 +35,4 @@ For example, after completing Question 2.2, a user should be able to provide an 
 ### Data Cleaning 
 Grabbed the online airline ontime performance database - reporting carrier on-time performance as my datasource. 
 Don't need the header for the file.
+Through away 2008 Nov/Dec Data Corrupt.
