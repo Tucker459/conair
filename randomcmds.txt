@@ -1,7 +1,14 @@
 hadoop fs -mkdir /data 
 s3-dist-cp --src s3://airline-ontime/ --dest hdfs:///data --srcPattern .*.csv
+set hive.execution.engine=tez;
 set hive.cli.print.header=true;
 set hive.exec.mode.local.auto=true;
-set hive.cli.print.current.db=true
+set hive.cli.print.current.db=true;
+set hive.exec.compress.output=true;
+set mapred.output.compression.type=BLOCK;
+set io.seqfile.compression.type=BLOCK;
+set hive.exec.parallel=true;
+set hive.exec.compress.intermediate=true;
+set mapred.map.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 drop table airlinestats;
 s3-dist-cp --src s3://air-carrier-statistics/ --dest hdfs:///data

@@ -55,16 +55,22 @@ CREATE TABLE IF NOT EXISTS airlinestats (
     sec_delay DECIMAL(10,2),
     late_aircraft_delay DECIMAL(10,2)
 )
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
-WITH SERDEPROPERTIES (
-  'serialization.format' = ',',
-  'field.delim' = ','
-)
--- ROW FORMAT DELIMITED 
---     FIELDS TERMINATED BY ','
---     LINES TERMINATED BY '\n'
--- STORED AS TEXTFILE
+ROW FORMAT DELIMITED 
+    FIELDS TERMINATED BY ','
+    LINES TERMINATED BY '\n'
+STORED AS TEXTFILE
+-- ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+-- WITH SERDEPROPERTIES (
+--   'serialization.format' = ',',
+--   'field.delim' = ','
+-- )
+-- STORED AS SEQUENCEFILE
 TBLPROPERTIES("skip.header.line.count"="1");
 
 LOAD DATA INPATH 'hdfs:///data/On_Time_On_Time_Performance_1988_2008.csv' 
 OVERWRITE INTO TABLE airlinestats;
+
+
+CREATE TABLE IF NOT EXISTS airlinestats_seq STORED AS SEQUENCEFILE
+AS
+SELECT * FROM airlinestats;

@@ -35,4 +35,12 @@ For example, after completing Question 2.2, a user should be able to provide an 
 ### Data Cleaning 
 Grabbed the online airline ontime performance database - reporting carrier on-time performance as my datasource. 
 Don't need the header for the file.
-Through away 2008 Nov/Dec Data Corrupt.
+Throw away 2008 Nov/Dec Data Corrupt.
+
+### Group 1 Tasks
+Optimizations: 
+Execution Engine = Tez
+Intermediate Compression between Map & Reduce Jobs ; Snappy Compression Algo
+Set Map Tasks Parallel Execution to True
+Compression of Data File - GZip 
+Compression of Table - Sequence (Row Based), Parquet (Column Based), ORC (Column Based)
