@@ -36,6 +36,8 @@ For example, after completing Question 2.2, a user should be able to provide an 
 Grabbed the online airline ontime performance database - reporting carrier on-time performance as my datasource. 
 Don't need the header for the file.
 Throw away 2008 Nov/Dec Data Corrupt.
+Got to use OpenRefine or something other tool within AWS to make sure data is clean. Numbers are off slighty. 
+Going to try to use AWS Glue using Go API. 
 
 ### Group 1 Tasks
 Optimizations: 
