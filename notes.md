@@ -38,9 +38,13 @@ Don't need the header for the file.
 Throw away 2008 Nov/Dec Data Corrupt.
 Got to use OpenRefine or something other tool within AWS to make sure data is clean. Numbers are off slighty. 
 Going to try to use AWS Glue using Go API. 
+Decided to write my own program using Go to subset columns. 
+OpenRefine is too slow with relatively small amount of data (1.5 - 2.1GB) to subset columns. Even on super expensive virtual machines. Went down the path of learning AWS Glue Go API only can be used to interact with the client not actually write the data transformations jobs which can only be written in Python or Scala. Didn't want to do that.
+Which is why I wrote my own Go Program to subset columns for GBs of data. Was super fast! 
+Now I can use OpenRefine to check for data integrity issues since the size of the data is much smaller.   
 
 ### Group 1 Tasks
-Optimizations: 
+Optimizations for Hive: 
 Execution Engine = Tez
 Intermediate Compression between Map & Reduce Jobs ; Snappy Compression Algo
 Set Map Tasks Parallel Execution to True

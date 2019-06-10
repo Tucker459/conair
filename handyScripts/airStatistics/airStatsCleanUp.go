@@ -22,13 +22,13 @@ func main() {
 	myFiles := strings.Split(files, "\n")
 
 	// removes header from files
-	for _, v := range myFiles {
-		if v != myFiles[0] {
-			cmd := fmt.Sprintf("sed -i -e 1d %s", v)
-			err := exec.Command("bash", "-c", cmd).Run()
-			checkError(err)
-		}
-	}
+	// for _, v := range myFiles {
+	// 	if v != myFiles[0] {
+	// 		cmd := fmt.Sprintf("sed -i -e 1d %s", v)
+	// 		err := exec.Command("bash", "-c", cmd).Run()
+	// 		checkError(err)
+	// 	}
+	// }
 
 	// appending into one file
 	for _, v := range myFiles {
