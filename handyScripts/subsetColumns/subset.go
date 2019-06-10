@@ -43,8 +43,10 @@ func main() {
 		//Filter by necessary columns
 		newRow := row[0:6]
 		newRow = append(newRow, row[8])
-		newRow = append(newRow, row[11:13]...)
-		newRow = append(newRow, row[17:19]...)
+		newRow = append(newRow, row[10:12]...)
+		newRow = append(newRow, row[13])
+		newRow = append(newRow, row[17])
+		newRow = append(newRow, row[19])
 		newRow = append(newRow, row[24:28]...)
 		newRow = append(newRow, row[35:39]...)
 		newRow = append(newRow, row[41])
