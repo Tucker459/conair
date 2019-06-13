@@ -50,3 +50,18 @@ Intermediate Compression between Map & Reduce Jobs ; Snappy Compression Algo
 Set Map Tasks Parallel Execution to True
 Compression of Data File - GZip 
 Compression of Table - Sequence (Row Based), Parquet (Column Based), ORC (Column Based)
+
+Testing out queries based on Storage format of the table. 
+Parquet seemed to give the biggest leap in performance since it's column based and the 
+queries that I need to run only use a few of the columns. 
+
+Used common-table-expressions, aggregate, and group-by functions to answer the two questions. 
+
+### Group 2 Tasks
+
+Used common-table-expressions, aggregate functions, group-by, and window functions to answers the three questions. 
+
+### Group 3 Tasks
+
+Using common-table-expressions, aggregate functions, group-by, and window functions to 
+answer one question. 
