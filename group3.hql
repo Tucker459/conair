@@ -1,18 +1,22 @@
 -- Group 3.2 Question 
-WITH d as 
-(SELECT origin, dest, flight_number, a_month, day_of_month, flight_date, rank() (PARTITION BY origin, dest ORDER BY dep_delay) as rnk
+
+-- First Leg
+SELECT origin, dest, flight_number, carrier, flight_date, dep_time, arr_delay, rank() OVER (PARTITION BY origin, dest ORDER BY arr_delay) AS rnk
 FROM airlinestats_par
-WHERE dep_time < '1200' AND 
+WHERE dep_time < 1200 AND 
+a_year = '2008';
+
+-- Second Leg
+WITH d AS
+(SELECT origin, dest, flight_number, carrier, flight_date, dep_time, arr_delay, rank() OVER (PARTITION BY origin, dest ORDER BY arr_delay) AS rnk
+FROM airlinestats_par
+WHERE dep_time < 1200 AND 
 a_year = '2008'
-GROUP BY origin, dest
-), WITH l
-(SELECT origin, dest, flight_number, a_month, day_of_month, rank() (PARTITION BY origin, dest ORDER BY dep_delay) as rnk1
-FROM d 
-WHERE origin IN (SELECT distinct dest from d) AND
-rnk = 1 AND
-flight_date >= (flight_date + 2)
-GROUP BY origin, dest)
-SELECT origin, dest, flight_number, a_month, day_of_month
-FROM l
-WHERE dep_time > '1200'
-GROUP BY origin, dest
+)
+SELECT origin, dest, flight_number, carrier, flight_date, dep_time, arr_delay, rank() OVER (PARTITION BY origin, dest ORDER BY arr_delay) AS rnk1
+FROM airlinestats_par
+ON a.origin 
+WHERE origin IN (SELECT distinct dest FROM d) AND
+flight_date >= date_add(flight_date,2) AND 
+a_year = '2008' AND
+dep_time > 1200;
