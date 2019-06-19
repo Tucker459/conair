@@ -19,7 +19,9 @@ For each source-destination pair X-Y, determine the mean arrival delay (in minut
 Group 3 (Answer both questions using Hadoop. You may also use Spark Streaming to answer Question 2.):
 
 Does the popularity distribution of airports follow a Zipf distribution? If not, what distribution does it follow?
+
 Tom wants to travel from airport X to airport Z. However, Tom also wants to stop at airport Y for some sightseeing on the way. More concretely, Tom has the following requirements (for specific queries, see the Task 1 Queries and Task 2 Queries)
+
 a) The second leg of the journey (flight Y-Z) must depart two days after the first leg (flight X-Y). For example, if X-Y departs on January 5, 2008, Y-Z must depart on January 7, 2008.
 
 b) Tom wants his flights scheduled to depart airport X before 12:00 PM local time and to depart airport Y after 12:00 PM local time.
@@ -65,3 +67,6 @@ Used common-table-expressions, aggregate functions, group-by, and window functio
 
 Using common-table-expressions, aggregate functions, group-by, and window functions to 
 answer one question. 
+
+Join optimizations:
+Hive also assumes that the last table is the *largest*. It attempts to buffer the other tables and then stream the last table through, while performing joins on individual records. Therefore you should put the largest table last in a join. 
