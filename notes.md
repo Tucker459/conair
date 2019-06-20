@@ -16,6 +16,7 @@ For each airport X, rank the top-10 carriers in decreasing order of on-time depa
 For each airport X, rank the top-10 airports in decreasing order of on-time departure performance from X.
 For each source-destination pair X-Y, rank the top-10 carriers in decreasing order of on-time arrival performance at Y from X.
 For each source-destination pair X-Y, determine the mean arrival delay (in minutes) for a flight from X to Y.
+
 Group 3 (Answer both questions using Hadoop. You may also use Spark Streaming to answer Question 2.):
 
 Does the popularity distribution of airports follow a Zipf distribution? If not, what distribution does it follow?
@@ -45,17 +46,20 @@ OpenRefine is too slow with relatively small amount of data (1.5 - 2.1GB) to sub
 Which is why I wrote my own Go Program to subset columns for GBs of data. Was super fast! 
 Now I can use OpenRefine to check for data integrity issues since the size of the data is much smaller.   
 
-### Group 1 Tasks
-Optimizations for Hive: 
-Execution Engine = Tez
-Intermediate Compression between Map & Reduce Jobs ; Snappy Compression Algo
-Set Map Tasks Parallel Execution to True
-Compression of Data File - GZip 
-Compression of Table - Sequence (Row Based), Parquet (Column Based), ORC (Column Based)
+### Optimizations 
 
-Testing out queries based on Storage format of the table. 
-Parquet seemed to give the biggest leap in performance since it's column based and the 
-queries that I need to run only use a few of the columns. 
+* Optimizations for Hive:  
+  Execution Engine = Tez  
+  Intermediate Compression between Map & Reduce Jobs ; Snappy Compression Algo  
+  Set Map Tasks Parallel Execution to True  
+  Compression of Data File - GZip   
+  Compression of Table - Sequence (Row Based), Parquet (Column Based), ORC (Column Based)
+
+  Testing out queries based on Storage format of the table.  
+  Parquet seemed to give the biggest leap in performance since it's column based and the 
+  queries that I need to run only use a few of the columns. 
+
+### Group 1 Tasks
 
 Used common-table-expressions, aggregate, and group-by functions to answer the two questions. 
 
@@ -68,5 +72,10 @@ Used common-table-expressions, aggregate functions, group-by, and window functio
 Using common-table-expressions, aggregate functions, group-by, and window functions to 
 answer one question. 
 
-Join optimizations:
-Hive also assumes that the last table is the *largest*. It attempts to buffer the other tables and then stream the last table through, while performing joins on individual records. Therefore you should put the largest table last in a join. 
+* Join optimizations:
+  Hive also assumes that the last table is the *largest*. It attempts to buffer the other tables and then stream the last table through, while performing joins on individual records. Therefore you should put the largest table last in a join. 
+
+### Prep for AWS Datapipeline
+
+Breakout each individual questions sql answer into its own individual script. To be loaded to S3.   
+For Group2 and 3.2 answers morph sql into CTAS (Create Table AS Select) statement for they can be loaded into DynamoDB tables. 

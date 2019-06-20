@@ -1,12 +1,5 @@
 -- Group 3.2 Question 
-
--- First Leg
-SELECT origin, dest, flight_number, carrier, flight_date, date_add(flight_date,2) as target_date, dep_time, arr_delay, rank() OVER (PARTITION BY origin, dest, flight_date ORDER BY arr_delay) AS rnk
-FROM airlinestats_par
-WHERE dep_time < 1200 AND 
-a_year = '2008';
-
--- Second Leg
+CREATE TABLE travel AS
 WITH d AS 
 (
    SELECT

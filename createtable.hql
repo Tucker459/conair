@@ -30,15 +30,18 @@ LOCATION 's3://conairdatainput/'
 TBLPROPERTIES ('has_encrypted_data'='false');
 
 
-CREATE TABLE IF NOT EXISTS airlinestats_seq STORED AS SEQUENCEFILE
-AS
-SELECT * FROM airlinestats;
-
-CREATE TABLE IF NOT EXISTS airlinestats_orc STORED AS ORC
-AS
-SELECT * FROM airlinestats;
-
+-- Use Parquet format as it has the biggest leap of performance based on the queries that I'm running.
 CREATE TABLE IF NOT EXISTS airlinestats_par STORED AS PARQUET
 AS
 SELECT * FROM airlinestats;
+
+-- CREATE TABLE IF NOT EXISTS airlinestats_seq STORED AS SEQUENCEFILE
+-- AS
+-- SELECT * FROM airlinestats;
+
+-- CREATE TABLE IF NOT EXISTS airlinestats_orc STORED AS ORC
+-- AS
+-- SELECT * FROM airlinestats;
+
+
 
