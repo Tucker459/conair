@@ -1,0 +1,148 @@
+{
+  "objects": [
+    {
+      "name": "SeqFileCompressionType",
+      "id": "PropertyId_0X7A9",
+      "type": "Property",
+      "value": "BLOCK",
+      "key": "io.seqfile.compression.type"
+    },
+    {
+      "name": "MapCompressionOutputType",
+      "id": "PropertyId_dflx9",
+      "type": "Property",
+      "value": "BLOCK",
+      "key": "mapred.output.compression.type"
+    },
+    {
+      "configuration": {
+        "ref": "EmrConfigurationId_FY652"
+      },
+      "name": "EMRCluster",
+      "coreInstanceCount": "3",
+      "coreInstanceType": "m3.xlarge",
+      "releaseLabel": "emr-5.24.0",
+      "id": "EmrClusterId_brw3B",
+      "masterInstanceType": "m3.xlarge",
+      "type": "EmrCluster",
+      "availabilityZone": "us-east-1e",
+      "applications": "tez"
+    },
+    {
+      "name": "CompressIntermediateData",
+      "id": "PropertyId_mqXib",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.compress.intermediate"
+    },
+    {
+      "name": "CompressOutput",
+      "id": "PropertyId_FBJwT",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.compress.output"
+    },
+    {
+      "name": "ExecParallel",
+      "id": "PropertyId_kweK1",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.parallel"
+    },
+    {
+      "failureAndRerunMode": "CASCADE",
+      "resourceRole": "DataPipelineDefaultResourceRole",
+      "role": "DataPipelineDefaultRole",
+      "pipelineLogUri": "s3://conair-datapipeline-log/",
+      "scheduleType": "ONDEMAND",
+      "name": "Default",
+      "id": "Default"
+    },
+    {
+      "name": "ExecMode",
+      "id": "PropertyId_Tz9zc",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.mode.local.auto"
+    },
+    {
+      "directoryPath": "s3://conairdatainput/On_Time_Performance_1988_2008.csv",
+      "name": "S3DataInput",
+      "id": "DataNodeId_XPfjl",
+      "type": "S3DataNode"
+    },
+    {
+      "input": {
+        "ref": "DataNodeId_XPfjl"
+      },
+      "scriptUri": "s3://conair-code/createtable.hql",
+      "stage": "false",
+      "name": "Create Table",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_QbYxi",
+      "type": "HiveActivity"
+    },
+    {
+      "scriptUri": "s3://conair-code/group1/1.1/top10_airports_flights_inout.hql",
+      "stage": "false",
+      "dependsOn": {
+        "ref": "HiveActivityId_QbYxi"
+      },
+      "name": "Top10 Airports by Flights In/Out",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_KstaW",
+      "type": "HiveActivity"
+    },
+    {
+      "name": "MapOutputCompression",
+      "id": "PropertyId_i5Pif",
+      "type": "Property",
+      "value": "org.apache.hadoop.io.compress.SnappyCodec",
+      "key": "mapred.map.output.compression.codec"
+    },
+    {
+      "property": [
+        {
+          "ref": "PropertyId_Tz9zc"
+        },
+        {
+          "ref": "PropertyId_FBJwT"
+        },
+        {
+          "ref": "PropertyId_kweK1"
+        },
+        {
+          "ref": "PropertyId_i5Pif"
+        },
+        {
+          "ref": "PropertyId_dflx9"
+        },
+        {
+          "ref": "PropertyId_zfAnp"
+        },
+        {
+          "ref": "PropertyId_0X7A9"
+        },
+        {
+          "ref": "PropertyId_mqXib"
+        }
+      ],
+      "name": "HiveOptimizations",
+      "id": "EmrConfigurationId_FY652",
+      "classification": "hive-site",
+      "type": "EmrConfiguration"
+    },
+    {
+      "name": "HiveExecutionEngine",
+      "id": "PropertyId_zfAnp",
+      "type": "Property",
+      "value": "tez",
+      "key": "hive.execution.engine"
+    }
+  ],
+  "parameters": []
+}
