@@ -29,6 +29,19 @@
       "applications": "tez"
     },
     {
+      "scriptUri": "s3://conair-code/group1/1.2/top10_airlines_on_time_performance.hql",
+      "stage": "false",
+      "dependsOn": {
+        "ref": "HiveActivityId_QbYxi"
+      },
+      "name": "Top10 Airlines by On-Time-Performance",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_KstaW",
+      "type": "HiveActivity"
+    },
+    {
       "name": "CompressIntermediateData",
       "id": "PropertyId_mqXib",
       "type": "Property",
@@ -36,18 +49,18 @@
       "key": "hive.exec.compress.intermediate"
     },
     {
-      "name": "CompressOutput",
-      "id": "PropertyId_FBJwT",
-      "type": "Property",
-      "value": "true",
-      "key": "hive.exec.compress.output"
-    },
-    {
       "name": "ExecParallel",
       "id": "PropertyId_kweK1",
       "type": "Property",
       "value": "true",
       "key": "hive.exec.parallel"
+    },
+    {
+      "name": "CompressOutput",
+      "id": "PropertyId_FBJwT",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.compress.output"
     },
     {
       "failureAndRerunMode": "CASCADE",
@@ -82,19 +95,6 @@
         "ref": "EmrClusterId_brw3B"
       },
       "id": "HiveActivityId_QbYxi",
-      "type": "HiveActivity"
-    },
-    {
-      "scriptUri": "s3://conair-code/group1/1.1/top10_airports_flights_inout.hql",
-      "stage": "false",
-      "dependsOn": {
-        "ref": "HiveActivityId_QbYxi"
-      },
-      "name": "Top10 Airports by Flights In/Out",
-      "runsOn": {
-        "ref": "EmrClusterId_brw3B"
-      },
-      "id": "HiveActivityId_KstaW",
       "type": "HiveActivity"
     },
     {
