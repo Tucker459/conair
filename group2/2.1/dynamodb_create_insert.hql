@@ -10,4 +10,4 @@ TBLPROPERTIES(
 
 INSERT OVERWRITE TABLE ddb_features 
 SELECT *
-FROM top10_carriers_grp_2.1;
+FROM top10_carriers;
