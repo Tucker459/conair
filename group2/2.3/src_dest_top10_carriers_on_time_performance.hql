@@ -11,6 +11,6 @@ ORDER BY avg_arr_delay), h AS
 (SELECT origin, dest, carrier, avg_arr_delay, rank() OVER (PARTITION BY origin, dest, carrier ORDER BY avg_arr_delay) AS rnk
 FROM l
 WHERE avg_arr_delay IS NOT NULL)
-SELECT origin, dest, carrier, avg_arr_delay 
+SELECT concat_ws("_",origin,dest) as origin_dest, carrier, avg_arr_delay 
 FROM h
 WHERE rnk BETWEEN 1 AND 10;
