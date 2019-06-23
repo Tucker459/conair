@@ -1,0 +1,171 @@
+{
+  "objects": [
+    {
+      "name": "SeqFileCompressionType",
+      "id": "PropertyId_0X7A9",
+      "type": "Property",
+      "value": "BLOCK",
+      "key": "io.seqfile.compression.type"
+    },
+    {
+      "period": "1 days",
+      "name": "Every 1 day",
+      "id": "DefaultSchedule",
+      "type": "Schedule",
+      "startAt": "FIRST_ACTIVATION_DATE_TIME"
+    },
+    {
+      "name": "MapCompressionOutputType",
+      "id": "PropertyId_dflx9",
+      "type": "Property",
+      "value": "BLOCK",
+      "key": "mapred.output.compression.type"
+    },
+    {
+      "configuration": {
+        "ref": "EmrConfigurationId_FY652"
+      },
+      "name": "EMRCluster",
+      "coreInstanceType": "m5.4xlarge",
+      "coreInstanceCount": "3",
+      "releaseLabel": "emr-5.24.0",
+      "id": "EmrClusterId_brw3B",
+      "masterInstanceType": "m1.xlarge",
+      "type": "EmrCluster",
+      "availabilityZone": "us-east-1b",
+      "applications": "tez"
+    },
+    {
+      "failureAndRerunMode": "CASCADE",
+      "schedule": {
+        "ref": "DefaultSchedule"
+      },
+      "resourceRole": "DataPipelineDefaultResourceRole",
+      "role": "DataPipelineDefaultRole",
+      "pipelineLogUri": "s3://conair-datapipeline-log/",
+      "scheduleType": "cron",
+      "name": "Default",
+      "id": "Default"
+    },
+    {
+      "name": "CompressIntermediateData",
+      "id": "PropertyId_mqXib",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.compress.intermediate"
+    },
+    {
+      "name": "CompressOutput",
+      "id": "PropertyId_FBJwT",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.compress.output"
+    },
+    {
+      "name": "ExecParallel",
+      "id": "PropertyId_kweK1",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.parallel"
+    },
+    {
+      "name": "ExecMode",
+      "id": "PropertyId_Tz9zc",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.mode.local.auto"
+    },
+    {
+      "directoryPath": "s3://conairdatainput/On_Time_Performance_1988_2008.csv",
+      "name": "S3DataInput",
+      "id": "DataNodeId_XPfjl",
+      "type": "S3DataNode"
+    },
+    {
+      "input": {
+        "ref": "DataNodeId_XPfjl"
+      },
+      "scriptUri": "s3://conair-code/createtable.hql",
+      "stage": "false",
+      "name": "Create Table",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_QbYxi",
+      "type": "HiveActivity"
+    },
+    {
+      "stage": "false",
+      "dependsOn": {
+        "ref": "HiveActivityId_KstaW"
+      },
+      "scriptUri": "s3://conair-code/group2/2.3/dynamodb_create_insert.hql",
+      "name": "DynamoDB Create & Insert",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_Obe5x",
+      "type": "HiveActivity"
+    },
+    {
+      "name": "MapOutputCompression",
+      "id": "PropertyId_i5Pif",
+      "type": "Property",
+      "value": "org.apache.hadoop.io.compress.SnappyCodec",
+      "key": "mapred.map.output.compression.codec"
+    },
+    {
+      "property": [
+        {
+          "ref": "PropertyId_Tz9zc"
+        },
+        {
+          "ref": "PropertyId_FBJwT"
+        },
+        {
+          "ref": "PropertyId_kweK1"
+        },
+        {
+          "ref": "PropertyId_i5Pif"
+        },
+        {
+          "ref": "PropertyId_dflx9"
+        },
+        {
+          "ref": "PropertyId_zfAnp"
+        },
+        {
+          "ref": "PropertyId_0X7A9"
+        },
+        {
+          "ref": "PropertyId_mqXib"
+        }
+      ],
+      "name": "HiveOptimizations",
+      "id": "EmrConfigurationId_FY652",
+      "classification": "hive-site",
+      "type": "EmrConfiguration"
+    },
+    {
+      "name": "HiveExecutionEngine",
+      "id": "PropertyId_zfAnp",
+      "type": "Property",
+      "value": "tez",
+      "key": "hive.execution.engine"
+    },
+    {
+      "stage": "false",
+      "scriptUri": "s3://conair-code/group2/2.3/src_dest_top10_carriers_on_time_performance.hql",
+      "dependsOn": {
+        "ref": "HiveActivityId_QbYxi"
+      },
+      "name": "Each Src-Dest Pair: Top10 Carriers in Decreasing Order by On-Time-Performance",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_KstaW",
+      "type": "HiveActivity"
+    }
+  ],
+  "parameters": []
+}

@@ -11,6 +11,6 @@ ORDER BY avg_dep_delay), h AS
 (SELECT origin, carrier, avg_dep_delay, rank() OVER (PARTITION BY origin ORDER BY avg_dep_delay) AS rnk
 FROM l
 WHERE avg_dep_delay IS NOT NULL)
-SELECT origin, carrier, avg_dep_delay 
+SELECT origin, carrier, avg_dep_delay
 FROM h
 WHERE rnk BETWEEN 1 AND 10;

@@ -4,7 +4,7 @@ CREATE EXTERNAL TABLE ddb_features
    avg_dep_delay DOUBLE)
 STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'
 TBLPROPERTIES(
-    "dynamodb.table.name" = "top10_dest_airports",
+    "dynamodb.table.name" = "top10_dest_airports_grp2.2",
     "dynamodb.column.mapping"="origin:origin,dest:dest,avg_dep_delay:avg_dep_delay"
 );
 
