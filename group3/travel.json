@@ -15,6 +15,51 @@
       "key": "mapred.output.compression.type"
     },
     {
+      "name": "DynamoDB Write Capacity",
+      "id": "PropertyId_Ze8nY",
+      "type": "Property",
+      "value": "1.5",
+      "key": "dynamodb.throughput.write.percent"
+    },
+    {
+      "property": [
+        {
+          "ref": "PropertyId_Tz9zc"
+        },
+        {
+          "ref": "PropertyId_FBJwT"
+        },
+        {
+          "ref": "PropertyId_kweK1"
+        },
+        {
+          "ref": "PropertyId_i5Pif"
+        },
+        {
+          "ref": "PropertyId_dflx9"
+        },
+        {
+          "ref": "PropertyId_zfAnp"
+        },
+        {
+          "ref": "PropertyId_0X7A9"
+        },
+        {
+          "ref": "PropertyId_mqXib"
+        },
+        {
+          "ref": "PropertyId_PMArT"
+        },
+        {
+          "ref": "PropertyId_Ze8nY"
+        }
+      ],
+      "name": "HiveOptimizations",
+      "id": "EmrConfigurationId_FY652",
+      "classification": "hive-site",
+      "type": "EmrConfiguration"
+    },
+    {
       "stage": "false",
       "dependsOn": {
         "ref": "HiveActivityId_KstaW"
@@ -35,6 +80,13 @@
       "key": "hive.exec.compress.intermediate"
     },
     {
+      "name": "ExecParallel",
+      "id": "PropertyId_kweK1",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.parallel"
+    },
+    {
       "name": "CompressOutput",
       "id": "PropertyId_FBJwT",
       "type": "Property",
@@ -42,11 +94,13 @@
       "key": "hive.exec.compress.output"
     },
     {
-      "name": "ExecParallel",
-      "id": "PropertyId_kweK1",
-      "type": "Property",
-      "value": "true",
-      "key": "hive.exec.parallel"
+      "failureAndRerunMode": "CASCADE",
+      "resourceRole": "DataPipelineDefaultResourceRole",
+      "role": "DataPipelineDefaultRole",
+      "pipelineLogUri": "s3://conair-datapipeline-log/",
+      "scheduleType": "ONDEMAND",
+      "name": "Default",
+      "id": "Default"
     },
     {
       "configuration": {
@@ -61,15 +115,6 @@
       "type": "EmrCluster",
       "availabilityZone": "us-east-1b",
       "applications": "tez"
-    },
-    {
-      "failureAndRerunMode": "CASCADE",
-      "resourceRole": "DataPipelineDefaultResourceRole",
-      "role": "DataPipelineDefaultRole",
-      "pipelineLogUri": "s3://conair-datapipeline-log/",
-      "scheduleType": "ONDEMAND",
-      "name": "Default",
-      "id": "Default"
     },
     {
       "name": "ExecMode",
@@ -116,41 +161,6 @@
       },
       "id": "HiveActivityId_QbYxi",
       "type": "HiveActivity"
-    },
-    {
-      "property": [
-        {
-          "ref": "PropertyId_Tz9zc"
-        },
-        {
-          "ref": "PropertyId_FBJwT"
-        },
-        {
-          "ref": "PropertyId_kweK1"
-        },
-        {
-          "ref": "PropertyId_i5Pif"
-        },
-        {
-          "ref": "PropertyId_dflx9"
-        },
-        {
-          "ref": "PropertyId_zfAnp"
-        },
-        {
-          "ref": "PropertyId_0X7A9"
-        },
-        {
-          "ref": "PropertyId_mqXib"
-        },
-        {
-          "ref": "PropertyId_PMArT"
-        }
-      ],
-      "name": "HiveOptimizations",
-      "id": "EmrConfigurationId_FY652",
-      "classification": "hive-site",
-      "type": "EmrConfiguration"
     },
     {
       "name": "MapOutputCompression",
