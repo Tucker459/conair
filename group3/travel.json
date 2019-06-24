@@ -35,18 +35,18 @@
       "key": "hive.exec.compress.intermediate"
     },
     {
-      "name": "ExecParallel",
-      "id": "PropertyId_kweK1",
-      "type": "Property",
-      "value": "true",
-      "key": "hive.exec.parallel"
-    },
-    {
       "name": "CompressOutput",
       "id": "PropertyId_FBJwT",
       "type": "Property",
       "value": "true",
       "key": "hive.exec.compress.output"
+    },
+    {
+      "name": "ExecParallel",
+      "id": "PropertyId_kweK1",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.parallel"
     },
     {
       "configuration": {
@@ -79,23 +79,17 @@
       "key": "hive.exec.mode.local.auto"
     },
     {
+      "name": "dfs replication",
+      "id": "PropertyId_PMArT",
+      "type": "Property",
+      "value": "1",
+      "key": "dfs.replication"
+    },
+    {
       "directoryPath": "s3://conairdatainput/On_Time_Performance_1988_2008.csv",
       "name": "S3DataInput",
       "id": "DataNodeId_XPfjl",
       "type": "S3DataNode"
-    },
-    {
-      "input": {
-        "ref": "DataNodeId_XPfjl"
-      },
-      "scriptUri": "s3://conair-code/createtable.hql",
-      "stage": "false",
-      "name": "Create Table",
-      "runsOn": {
-        "ref": "EmrClusterId_brw3B"
-      },
-      "id": "HiveActivityId_QbYxi",
-      "type": "HiveActivity"
     },
     {
       "stage": "false",
@@ -111,11 +105,17 @@
       "type": "HiveActivity"
     },
     {
-      "name": "MapOutputCompression",
-      "id": "PropertyId_i5Pif",
-      "type": "Property",
-      "value": "org.apache.hadoop.io.compress.SnappyCodec",
-      "key": "mapred.map.output.compression.codec"
+      "input": {
+        "ref": "DataNodeId_XPfjl"
+      },
+      "scriptUri": "s3://conair-code/createtable.hql",
+      "stage": "false",
+      "name": "Create Table",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_QbYxi",
+      "type": "HiveActivity"
     },
     {
       "property": [
@@ -142,12 +142,22 @@
         },
         {
           "ref": "PropertyId_mqXib"
+        },
+        {
+          "ref": "PropertyId_PMArT"
         }
       ],
       "name": "HiveOptimizations",
       "id": "EmrConfigurationId_FY652",
       "classification": "hive-site",
       "type": "EmrConfiguration"
+    },
+    {
+      "name": "MapOutputCompression",
+      "id": "PropertyId_i5Pif",
+      "type": "Property",
+      "value": "org.apache.hadoop.io.compress.SnappyCodec",
+      "key": "mapred.map.output.compression.codec"
     },
     {
       "name": "HiveExecutionEngine",

@@ -23,6 +23,7 @@ h AS
       RANK() OVER (PARTITION BY a.origin, a.dest, a.flight_date, d.origin, d.dest, d.flight_date 
    ORDER BY
 (d.arr_delay + a.arr_delay)) AS overall_rnk,
+      ROW_NUMBER() OVER() AS row_num,
       d.origin AS first_origin,
       d.dest AS first_dest,
       d.flight_number AS first_flight_num,
@@ -59,7 +60,7 @@ h AS
       AND a.dep_time > 1200
 )
 SELECT
-   concat_ws("_", first_origin, second_origin, second_dest, cast(first_flight_date as string), cast(second_flight_date as string), cast(overall_rnk as string)) as pkey,
+   concat_ws("_", first_origin, second_origin, second_dest, cast(first_flight_date as string), cast(second_flight_date as string), cast(overall_rnk as string), cast(row_num as string)) as pkey,
    overall_rnk,
    first_origin,
    first_dest,
