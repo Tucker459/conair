@@ -15,13 +15,6 @@
       "key": "mapred.output.compression.type"
     },
     {
-      "name": "DynamoDB Write Capacity",
-      "id": "PropertyId_Ze8nY",
-      "type": "Property",
-      "value": "1.5",
-      "key": "dynamodb.throughput.write.percent"
-    },
-    {
       "property": [
         {
           "ref": "PropertyId_Tz9zc"
@@ -78,6 +71,13 @@
       "type": "Property",
       "value": "true",
       "key": "hive.exec.compress.intermediate"
+    },
+    {
+      "name": "DynamoDB Write Capacity",
+      "id": "PropertyId_Ze8nY",
+      "type": "Property",
+      "value": ".65",
+      "key": "dynamodb.throughput.write.percent"
     },
     {
       "name": "ExecParallel",
