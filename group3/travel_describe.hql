@@ -80,3 +80,6 @@ FROM
    f 
 WHERE
    overall_rnk = 1;
+
+
+DESCRIBE EXTENDED travel;
