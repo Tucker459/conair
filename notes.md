@@ -86,3 +86,23 @@ For Group2 and 3.2 answers morph sql into CTAS (Create Table AS Select) statemen
 ### DynamoDB Tables
 
 Created composite primary keys for group two and group 3.2 questions. That way the data with the same partition key is stored physically close together, ordered by the sort value. Always try to create parition keys that distribute your workload evenly. You want to avoid "hot" paritions which results in throttling and using provisoned I/O capacity inefficiently.   
+
+Group 3.2 Table Size = 953010710 (Bytes) ; 8.876 (GBs) ; 62,596,011 Rows
+10 M5.4XLarge Nodes = 160 Mappers / 80 Reducers
+
+           yarn.scheduler.maximum-allocation-mb 57344 
+  --------------------------------------------------------------     X's 10 
+ [mapreduce.map.memory.mb 3584] [mapreduce.reduce.memory.mb 7168] 
+
+DynamoDB Provisioning Calculations: 
+
+4KB Read Capacity Unit ; 1KB Write Capacity Unit
+
+200 W Capacity Units = 953010710 / 204800 = 4,653.37 Secs = 1.29 Hrs
+600 W Capacity Units = 953010710 / 614400 = 1,551.12 Secs = 25.85 Mins
+1000 W Capacity Units = 953010710 / 1024000 = 930.67 Secs = 15.51 Mins
+
+200 R Capacity Units = 953010710 / 819200 = 1,163.34 Secs = 19.39 Mins
+450 R Capacity Units = 953010710 / 1843200 = 517.04 Secs = 8.62 Mins
+600 R Capacity Units = 953010710 / 2457600 = 387.78 Secs = 6.46 Mins
+1000 R Capacity Units = 953010710 / 4096000 = 232.67 Secs = 3.88 Mins
