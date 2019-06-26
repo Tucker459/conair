@@ -90,9 +90,9 @@ Created composite primary keys for group two and group 3.2 questions. That way t
 Group 3.2 Table Size = 953010710 (Bytes) ; 8.876 (GBs) ; 62,596,011 Rows
 10 M5.4XLarge Nodes = 160 Mappers / 80 Reducers
 
-           yarn.scheduler.maximum-allocation-mb 57344 
-  --------------------------------------------------------------     X's 10 
- [mapreduce.map.memory.mb 3584] [mapreduce.reduce.memory.mb 7168] 
+> yarn.scheduler.maximum-allocation-mb 57344 
+> --------------------------------------------------------------   X's 10 
+> [mapreduce.map.memory.mb 3584] [mapreduce.reduce.memory.mb 7168] 
 
 DynamoDB Provisioning Calculations: 
 

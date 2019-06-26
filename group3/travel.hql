@@ -58,8 +58,9 @@ f AS
       AND a.a_year = '2008' 
       AND a.dep_time > 1200 
 )
-SELECT
-   concat_ws("_", first_origin, second_origin, second_dest, cast(first_flight_date AS string), cast(overall_rnk AS string)) AS pkey,
+,
+g AS 
+(SELECT
    overall_rnk,
    first_origin,
    first_dest,
@@ -79,4 +80,47 @@ SELECT
 FROM
    f 
 WHERE
-   overall_rnk = 1;
+   overall_rnk = 1
+)
+,
+h AS
+(SELECT
+   ROW_NUMBER() OVER () as row_num,
+   overall_rnk,
+   first_origin,
+   first_dest,
+   first_flight_num,
+   first_carrier,
+   first_flight_date,
+   first_dep_time,
+   first_arr_delay,
+   second_origin,
+   second_dest,
+   second_flight_num,
+   second_carrier,
+   second_flight_date,
+   second_dep_time,
+   second_arr_delay,
+   total_arrival_delay
+FROM 
+g)
+SELECT
+   concat_ws("_", first_origin, second_origin, second_dest, cast(first_flight_date AS string), cast(overall_rnk AS string), cast(row_num as string)) AS pkey,
+   overall_rnk,
+   first_origin,
+   first_dest,
+   first_flight_num,
+   first_carrier,
+   first_flight_date,
+   first_dep_time,
+   first_arr_delay,
+   second_origin,
+   second_dest,
+   second_flight_num,
+   second_carrier,
+   second_flight_date,
+   second_dep_time,
+   second_arr_delay,
+   total_arrival_delay
+FROM
+h;
