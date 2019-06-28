@@ -12,3 +12,11 @@ set hive.exec.compress.intermediate=true;
 set mapred.map.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
 drop table airlinestats;
 s3-dist-cp --src s3://air-carrier-statistics/ --dest hdfs:///data
+
+set mapreduce.input.fileinputformat.split.maxsize=50000;
+set mapreduce.input.fileinputformat.split.minsize=50000;
+set mapreduce.job.maps=20;
+set dfs.block.size=8388608;
+set mapred.map.tasks=20;
+set hive.merge.mapfiles=false;
+set hive.input.format=org.apache.hadoop.hive.ql.io.HiveInputFormat;

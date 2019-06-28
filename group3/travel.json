@@ -1,11 +1,38 @@
 {
   "objects": [
     {
+      "dependsOn": {
+        "ref": "HiveActivityId_OGTcN"
+      },
+      "stage": "false",
+      "scriptUri": "s3://conair-code/group3/3.2/dynamodb_create.hql",
+      "name": "DynamoDB Create & Insert",
+      "runsOn": {
+        "ref": "EmrClusterId_brw3B"
+      },
+      "id": "HiveActivityId_Obe5x",
+      "type": "HiveActivity"
+    },
+    {
       "name": "SeqFileCompressionType",
       "id": "PropertyId_0X7A9",
       "type": "Property",
       "value": "BLOCK",
       "key": "io.seqfile.compression.type"
+    },
+    {
+      "configuration": {
+        "ref": "EmrConfigurationId_FY652"
+      },
+      "name": "EMRCluster",
+      "coreInstanceType": "m5.4xlarge",
+      "coreInstanceCount": "5",
+      "releaseLabel": "emr-5.24.0",
+      "id": "EmrClusterId_brw3B",
+      "masterInstanceType": "m1.xlarge",
+      "type": "EmrCluster",
+      "availabilityZone": "us-east-1b",
+      "applications": "tez"
     },
     {
       "name": "MapCompressionOutputType",
@@ -15,17 +42,60 @@
       "key": "mapred.output.compression.type"
     },
     {
-      "scriptUri": "s3://conair-code/group3/3.2/dynamodb_insert.hql",
-      "stage": "false",
-      "dependsOn": {
-        "ref": "HiveActivityId_Obe5x"
-      },
-      "name": "DynamoDB Insert",
-      "runsOn": {
-        "ref": "EmrClusterId_brw3B"
-      },
-      "id": "HiveActivityId_cZqY6",
-      "type": "HiveActivity"
+      "property": [
+        {
+          "ref": "PropertyId_kweK1"
+        },
+        {
+          "ref": "PropertyId_i5Pif"
+        },
+        {
+          "ref": "PropertyId_FBJwT"
+        },
+        {
+          "ref": "PropertyId_Ze8nY"
+        },
+        {
+          "ref": "PropertyId_dflx9"
+        },
+        {
+          "ref": "PropertyId_mqXib"
+        },
+        {
+          "ref": "PropertyId_zfAnp"
+        },
+        {
+          "ref": "PropertyId_PMArT"
+        },
+        {
+          "ref": "PropertyId_0X7A9"
+        },
+        {
+          "ref": "PropertyId_qJJ2P"
+        },
+        {
+          "ref": "PropertyId_DS25s"
+        },
+        {
+          "ref": "PropertyId_ot4bd"
+        },
+        {
+          "ref": "PropertyId_Aq2k5"
+        },
+        {
+          "ref": "PropertyId_Lyfye"
+        },
+        {
+          "ref": "PropertyId_2b6ml"
+        },
+        {
+          "ref": "PropertyId_I6sh0"
+        }
+      ],
+      "name": "HiveOptimizations",
+      "id": "EmrConfigurationId_FY652",
+      "classification": "hive-site",
+      "type": "EmrConfiguration"
     },
     {
       "name": "CompressIntermediateData",
@@ -35,30 +105,16 @@
       "key": "hive.exec.compress.intermediate"
     },
     {
-      "name": "MR Max Input Split Size",
-      "id": "PropertyId_GsH1V",
-      "type": "Property",
-      "value": "5120000000",
-      "key": "mapreduce.input.fileinputformat.split.maxsize"
-    },
-    {
-      "name": "MR Max Split Size",
-      "id": "PropertyId_y2Kl2",
-      "type": "Property",
-      "value": "5120000000",
-      "key": "mapreduce.max.split.size"
-    },
-    {
       "stage": "false",
       "dependsOn": {
         "ref": "HiveActivityId_KstaW"
       },
-      "name": "Describe Table",
-      "hiveScript": "DESCRIBE EXTENDED travel;",
+      "scriptUri": "s3://conair-code/group3/3.2/travelx_create.hql",
+      "name": "Travelx_Create",
       "runsOn": {
         "ref": "EmrClusterId_brw3B"
       },
-      "id": "HiveActivityId_TwwOC",
+      "id": "HiveActivityId_OGTcN",
       "type": "HiveActivity"
     },
     {
@@ -71,24 +127,31 @@
       "id": "Default"
     },
     {
-      "name": "ExecMode",
-      "id": "PropertyId_Tz9zc",
+      "name": "Hive Merge MapFiles",
+      "id": "PropertyId_2b6ml",
       "type": "Property",
-      "value": "true",
-      "key": "hive.exec.mode.local.auto"
+      "value": "false",
+      "key": "hive.merge.mapfiles"
     },
     {
-      "name": "DynamoDB Write Capacity",
-      "id": "PropertyId_Ze8nY",
+      "name": "MR Input SplitSize MaxSize",
+      "id": "PropertyId_qJJ2P",
       "type": "Property",
-      "value": "1.0",
-      "key": "dynamodb.throughput.write.percent"
+      "value": "50000",
+      "key": "mapreduce.input.fileinputformat.split.maxsize"
     },
     {
       "directoryPath": "s3://conairdatainput/On_Time_Performance_1988_2008.csv",
       "name": "S3DataInput",
       "id": "DataNodeId_XPfjl",
       "type": "S3DataNode"
+    },
+    {
+      "name": "Hive Input Format",
+      "id": "PropertyId_I6sh0",
+      "type": "Property",
+      "value": "org.apache.hadoop.hive.ql.io.HiveInputFormat",
+      "key": "hive.input.format"
     },
     {
       "stage": "false",
@@ -104,80 +167,18 @@
       "type": "HiveActivity"
     },
     {
-      "property": [
-        {
-          "ref": "PropertyId_Tz9zc"
-        },
-        {
-          "ref": "PropertyId_FBJwT"
-        },
-        {
-          "ref": "PropertyId_kweK1"
-        },
-        {
-          "ref": "PropertyId_i5Pif"
-        },
-        {
-          "ref": "PropertyId_dflx9"
-        },
-        {
-          "ref": "PropertyId_zfAnp"
-        },
-        {
-          "ref": "PropertyId_0X7A9"
-        },
-        {
-          "ref": "PropertyId_mqXib"
-        },
-        {
-          "ref": "PropertyId_PMArT"
-        },
-        {
-          "ref": "PropertyId_Ze8nY"
-        },
-        {
-          "ref": "PropertyId_y2Kl2"
-        },
-        {
-          "ref": "PropertyId_CBde8"
-        },
-        {
-          "ref": "PropertyId_4ecER"
-        },
-        {
-          "ref": "PropertyId_GsH1V"
-        }
-      ],
-      "name": "HiveOptimizations",
-      "id": "EmrConfigurationId_FY652",
-      "classification": "hive-site",
-      "type": "EmrConfiguration"
-    },
-    {
-      "configuration": [
-        {
-          "ref": "EmrConfigurationId_FY652"
-        },
-        {
-          "ref": "EmrConfigurationId_AUJjr"
-        }
-      ],
-      "name": "EMRCluster",
-      "coreInstanceType": "m5.4xlarge",
-      "coreInstanceCount": "10",
-      "releaseLabel": "emr-5.24.0",
-      "id": "EmrClusterId_brw3B",
-      "masterInstanceType": "m1.xlarge",
-      "type": "EmrCluster",
-      "availabilityZone": "us-east-1b",
-      "applications": "tez"
-    },
-    {
       "name": "MapOutputCompression",
       "id": "PropertyId_i5Pif",
       "type": "Property",
       "value": "org.apache.hadoop.io.compress.SnappyCodec",
       "key": "mapred.map.output.compression.codec"
+    },
+    {
+      "name": "Number of Map Tasks",
+      "id": "PropertyId_Lyfye",
+      "type": "Property",
+      "value": "20",
+      "key": "mapred.map.tasks"
     },
     {
       "name": "HiveExecutionEngine",
@@ -187,18 +188,25 @@
       "key": "hive.execution.engine"
     },
     {
-      "name": "Map Max Split Size",
-      "id": "PropertyId_xreCq",
+      "name": "Number of Map Jobs",
+      "id": "PropertyId_ot4bd",
       "type": "Property",
-      "value": "5120000000",
-      "key": "mapred.max.split.size"
+      "value": "20",
+      "key": "mapreduce.job.maps"
     },
     {
-      "name": "CompressOutput",
-      "id": "PropertyId_FBJwT",
+      "name": "DynamoDB Write Capacity",
+      "id": "PropertyId_Ze8nY",
       "type": "Property",
-      "value": "true",
-      "key": "hive.exec.compress.output"
+      "value": "1.5",
+      "key": "dynamodb.throughput.write.percent"
+    },
+    {
+      "name": "DFS Block Size",
+      "id": "PropertyId_Aq2k5",
+      "type": "Property",
+      "value": "8388608",
+      "key": "dfs.block.size"
     },
     {
       "name": "ExecParallel",
@@ -208,10 +216,18 @@
       "key": "hive.exec.parallel"
     },
     {
-      "name": "Hadoop Optimizations",
-      "id": "EmrConfigurationId_AUJjr",
-      "classification": "mapred-site",
-      "type": "EmrConfiguration"
+      "name": "CompressOutput",
+      "id": "PropertyId_FBJwT",
+      "type": "Property",
+      "value": "true",
+      "key": "hive.exec.compress.output"
+    },
+    {
+      "name": "MR Input SplitSize MinSize",
+      "id": "PropertyId_DS25s",
+      "type": "Property",
+      "value": "50000",
+      "key": "mapreduce.input.fileinputformat.split.minsize"
     },
     {
       "name": "dfs replication",
@@ -231,66 +247,6 @@
         "ref": "EmrClusterId_brw3B"
       },
       "id": "HiveActivityId_QbYxi",
-      "type": "HiveActivity"
-    },
-    {
-      "name": "Map Min Split Size",
-      "id": "PropertyId_GFQ18",
-      "type": "Property",
-      "value": "512000000",
-      "key": "mapred.min.split.size"
-    },
-    {
-      "name": "MR Min Input Split Size",
-      "id": "PropertyId_4ecER",
-      "type": "Property",
-      "value": "512000000",
-      "key": "mapreduce.input.fileinputformat.split.minsize"
-    },
-    {
-      "name": "MR Min Split Size",
-      "id": "PropertyId_CBde8",
-      "type": "Property",
-      "value": "512000000",
-      "key": "mapreduce.min.split.size"
-    },
-    {
-      "stage": "false",
-      "dependsOn": {
-        "ref": "HiveActivityId_TwwOC"
-      },
-      "name": "Alter Table",
-      "hiveScript": "ALTER TABLE travel SET TBLPROPERTIES (\"auto.purge\"=\"true\");",
-      "runsOn": {
-        "ref": "EmrClusterId_brw3B"
-      },
-      "id": "HiveActivityId_zpOST",
-      "type": "HiveActivity"
-    },
-    {
-      "stage": "false",
-      "dependsOn": {
-        "ref": "HiveActivityId_zpOST"
-      },
-      "name": "Create Table - Travel_X",
-      "hiveScript": "CREATE TABLE IF NOT EXISTS travel_x STORED AS SEQUENCEFILE\nAS\nSELECT * FROM travel;",
-      "runsOn": {
-        "ref": "EmrClusterId_brw3B"
-      },
-      "id": "HiveActivityId_R4Imf",
-      "type": "HiveActivity"
-    },
-    {
-      "stage": "false",
-      "scriptUri": "s3://conair-code/group3/3.2/dynamodb_create.hql",
-      "dependsOn": {
-        "ref": "HiveActivityId_R4Imf"
-      },
-      "name": "DynamoDB Create",
-      "runsOn": {
-        "ref": "EmrClusterId_brw3B"
-      },
-      "id": "HiveActivityId_Obe5x",
       "type": "HiveActivity"
     }
   ],

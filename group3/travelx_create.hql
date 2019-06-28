@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS travel_x STORED AS ORC
+TBLPROPERTIES("orc.compress" = "SNAPPY")
+AS
+SELECT * FROM travel;
