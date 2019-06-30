@@ -12,6 +12,6 @@ The main applications that I used for this project was EMR, Hadoop, Hive, Dynamo
 
 For extracting and data cleaning please take a look at some of my [handyScripts](/handyScripts).
 
-Follow along as I tried different optimizations and configurations in my [notes](notes.md) and [random commands](randomcmds.txt).
+Follow along as I tried different optimizations and configurations in my [notes](notes.md) and [random commands](randomcmds.txt). I also took [screenshots](/img) as I tried out different optimizations in Hive when querying the tables. 
 
 I also wrote go cli scripts to query the DynamoDB database for group 2 and 3.2 questions.
