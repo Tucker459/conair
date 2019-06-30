@@ -36,7 +36,7 @@ type Record struct {
 func main() {
 
 	if len(os.Args) != 2 {
-		log.Fatal("Please include src_dest_date! e.g. ./bestFlights ATL_JFK_04-03-2008")
+		log.Fatal("Please include src_dest_date! date format: yyyy/mm/dd e.g. ./bestFlights CMI_ORD_LAX_2008-03-04")
 	}
 	flight := os.Args[1]
 	svc := dynamodb.New(session.New(), aws.NewConfig().WithRegion("us-east-1"))
