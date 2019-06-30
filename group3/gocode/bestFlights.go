@@ -15,6 +15,7 @@ import (
 // Record represent one record in dynamoDB
 type Record struct {
 	BestFlight       string
+	PKey             string
 	FirstCarrier     string
 	FirstDepTime     string
 	FirstDest        string
@@ -46,7 +47,7 @@ func main() {
 			},
 		},
 		KeyConditionExpression: aws.String("best_flight = :f"),
-		IndexName:              aws.String("bestflightindex"),
+		IndexName:              aws.String("bestflight_index"),
 		TableName:              aws.String("bestflights_grp3.2"),
 	}
 
@@ -63,12 +64,9 @@ func main() {
 		log.Fatal("Failed to unmarshal DynamoDB Scan Items")
 	}
 
-	// Avg Delay is returning 0 when unmarshalling. Don't know why?
-	// Workaround: Convert avg delay to string in Hive table push to
-	// dynamodb as a string run the query and convert data type to
-	// float64 after unmarshalling.
 	records = append(records, recs...)
 
-	fmt.Println(records)
-	//fmt.Println(result)
+	//fmt.Println(records)
+
+	fmt.Println(result)
 }

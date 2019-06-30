@@ -13,8 +13,9 @@ CREATE TABLE travel AS WITH d AS
    FROM
       airlinestats_par 
    WHERE
-      dep_time < 1200 
-      AND a_year = '2008' 
+      dep_time < 1200 AND 
+      a_year = '2008' AND
+      arr_delay IS NOT NULL
 )
 ,
 f AS 
@@ -57,6 +58,7 @@ f AS
       )
       AND a.a_year = '2008' 
       AND a.dep_time > 1200 
+      AND a.arr_delay IS NOT NULL
 )
 ,
 g AS 
