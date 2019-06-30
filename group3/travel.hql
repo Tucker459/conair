@@ -105,22 +105,22 @@ h AS
 FROM 
 g)
 SELECT
-   concat_ws("_", first_origin, second_origin, second_dest, cast(first_flight_date AS string), cast(overall_rnk AS string), cast(row_num as string)) AS pkey,
-   overall_rnk,
+   concat_ws("_", first_origin, second_origin, second_dest, cast(first_flight_date AS string), cast(row_num as string)) AS pkey,
+   concat_ws("_", first_origin, second_origin, second_dest, cast(first_flight_date AS string)) AS best_flight,
    first_origin,
    first_dest,
-   first_flight_num,
+   cast(first_flight_num AS string) as first_flight_num,
    first_carrier,
-   first_flight_date,
-   first_dep_time,
-   first_arr_delay,
+   cast(first_flight_date AS string) as first_flight_date,
+   cast(first_dep_time AS string) as first_dep_time,
+   cast(first_arr_delay AS string) as first_arr_delay,
    second_origin,
    second_dest,
-   second_flight_num,
+   cast(second_flight_num AS string) as second_flight_num,
    second_carrier,
-   second_flight_date,
-   second_dep_time,
-   second_arr_delay,
-   total_arrival_delay
+   cast(second_flight_date AS string) as second_flight_date,
+   cast(second_dep_time AS string) as second_dep_time,
+   cast(second_arr_delay AS string) as second_arr_delay,
+   cast(total_arrival_delay AS string) as total_arrival_delay
 FROM
 h;

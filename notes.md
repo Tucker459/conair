@@ -60,6 +60,7 @@ Now I can use OpenRefine to check for data integrity issues since the size of th
   Testing out queries based on Storage format of the table.  
   Parquet seemed to give the biggest leap in performance since it's column based and the 
   queries that I need to run only use a few of the columns. 
+  For question 3.2 table of data I changed the format of the table to orc and decreased the map input split size to increase parallelism and number of mappers for the move of that data to dynamodb. 
 
 ### Group 1 Tasks
 
@@ -88,21 +89,22 @@ For Group2 and 3.2 answers morph sql into CTAS (Create Table AS Select) statemen
 Created composite primary keys for group two and group 3.2 questions. That way the data with the same partition key is stored physically close together, ordered by the sort value. Always try to create parition keys that distribute your workload evenly. You want to avoid "hot" paritions which results in throttling and using provisoned I/O capacity inefficiently.   
 
 Group 3.2 Table Size = 953010710 (Bytes) ; 8.876 (GBs) ; 62,596,011 Rows
-10 M5.4XLarge Nodes = 160 Mappers / 80 Reducers
+10 M5.4XLarge Nodes
+yarn.scheduler.maximum-allocation-mb = 57344 
+mapreduce.map.memory.mb = 3584
+mapreduce.reduce.memory.mb = 7168
 
-> yarn.scheduler.maximum-allocation-mb 57344 
-> --------------------------------------------------------------   X's 10 
-> [mapreduce.map.memory.mb 3584] [mapreduce.reduce.memory.mb 7168] 
+* DynamoDB Provisioning Calculations: 
 
-DynamoDB Provisioning Calculations: 
+    4KB Read Capacity Unit ; 1KB Write Capacity Unit
 
-4KB Read Capacity Unit ; 1KB Write Capacity Unit
+    200 W Capacity Units = 953010710 / 204800 = 4,653.37 Secs = 1.29 Hrs
+    600 W Capacity Units = 953010710 / 614400 = 1,551.12 Secs = 25.85 Mins
+    1000 W Capacity Units = 953010710 / 1024000 = 930.67 Secs = 15.51 Mins
 
-200 W Capacity Units = 953010710 / 204800 = 4,653.37 Secs = 1.29 Hrs
-600 W Capacity Units = 953010710 / 614400 = 1,551.12 Secs = 25.85 Mins
-1000 W Capacity Units = 953010710 / 1024000 = 930.67 Secs = 15.51 Mins
+    200 R Capacity Units = 953010710 / 819200 = 1,163.34 Secs = 19.39 Mins
+    450 R Capacity Units = 953010710 / 1843200 = 517.04 Secs = 8.62 Mins
+    600 R Capacity Units = 953010710 / 2457600 = 387.78 Secs = 6.46 Mins
+    1000 R Capacity Units = 953010710 / 4096000 = 232.67 Secs = 3.88 Mins
 
-200 R Capacity Units = 953010710 / 819200 = 1,163.34 Secs = 19.39 Mins
-450 R Capacity Units = 953010710 / 1843200 = 517.04 Secs = 8.62 Mins
-600 R Capacity Units = 953010710 / 2457600 = 387.78 Secs = 6.46 Mins
-1000 R Capacity Units = 953010710 / 4096000 = 232.67 Secs = 3.88 Mins
+Ended up just using On-Demand for question 3.2 table of data greatly decreased the time of moving that data from Hive to DynamoDB. 
