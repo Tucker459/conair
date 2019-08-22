@@ -10,6 +10,9 @@ I decided to use [Apache Hive](https://hive.apache.org/) on [AWS EMR](https://aw
 
 The main applications that I used for this project was EMR, Hadoop, Hive, DynamoDB, S3, EMRFS, and AWS Datapipeline for orchestration. I talked about my entire process from extracting and cleaning of the data to optimizations that I used to speed up queries in my [report](/report/ConairCapstoneReport.pdf). 
 
+[Read The Report](/report/ConairCapstoneReport.pdf)
+[Watch The Video](https://mediaspace.illinois.edu/media/t/1_qo3gygt6)
+
 For extracting and data cleaning please take a look at some of my [handyScripts](/handyScripts).
 
 Follow along as I tried different optimizations and configurations in my [notes](notes.md) and [random commands](randomcmds.txt). I also took [screenshots](/img) as I tried out different optimizations in Hive when querying the tables. 
